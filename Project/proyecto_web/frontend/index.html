@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoCity Buenaventura — Gestión de Residuos</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="icon" href="data:,"> <!-- Empty favicon to prevent 404/loading -->
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="brand">EcoCity Buenaventura</div>
+    <div class="links">
+      <a href="#inicio">Inicio</a>
+      <a href="#rutas">Rutas</a>
+      <a href="#reportes">Reportes</a>
+      <a href="#reportes">Reportes</a>
+      <a href="#proyecto">Proyecto</a>
+      <a href="#" onclick="logout()" style="color:var(--red); font-weight:bold;">Salir</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" style="margin:18px auto; max-width:1100px;">
+    <div class="hero-left">
+      <div class="badge">Programa de Reciclaje • Buenaventura</div>
+      <h1 id="inicio">Transformemos Buenaventura en una Eco-Ciudad Modelo</h1>
+      <p>Tu participación es clave para mantener nuestras playas limpias y nuestros barrios saludables. Únete a la red
+        de recolección inteligente, reporta incidentes y aprende a separar tus residuos correctamente.</p>
+      <div style="margin-top:20px; display:flex; gap:10px;">
+        <button class="btn eco" onclick="document.getElementById('rutas').scrollIntoView({behavior:'smooth'})">Ver
+          Rutas</button>
+        <button class="btn ghost"
+          onclick="document.getElementById('aprende').scrollIntoView({behavior:'smooth'})">Aprende a Reciclar</button>
+      </div>
+    </div>
+    <div class="illustration">
+      <!-- Hero Image (Direct placeholder to avoid checking for missing file) -->
+      <img src="https://i.imgur.com/7q7z2ox.png" alt="Eco Ciudad Buenaventura"
+        style="width:100%; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15);" />
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ESTADISTICAS / IMPACTO (Nuevo) -->
+    <section class="card stats-row"
+      style="display:flex; justify-content:space-around; text-align:center; padding:30px;">
+      <div>
+        <h3 style="color:var(--green); font-size:32px; margin:0;">+15</h3>
+        <p class="muted">Rutas Activas</p>
+      </div>
+      <div>
+        <h3 style="color:var(--green); font-size:32px; margin:0;">85%</h3>
+        <p class="muted">Recolección Efectiva</p>
+      </div>
+      <div>
+        <h3 style="color:var(--green); font-size:32px; margin:0;">24/7</h3>
+        <p class="muted">Monitoreo</p>
+      </div>
+    </section>
+
+    <!-- RUTAS & MAP -->
+    <section class="card" id="rutas">
+      <h2>Rutas y Horarios de Recolección</h2>
+      <p class="muted">Identifica el camión más cercano a tu vivienda. Nuestro sistema GPS permite optimizar los
+        recorridos para reducir la huella de carbono.</p>
+
+      <div id="mapRutas" class="map"></div>
+
+      <div style="margin-top:20px;">
+        <h4 style="margin:0 0 10px; color:var(--green-2);">Selecciona una ruta:</h4>
+        <ul id="routesList" class="list-group" style="list-style:none; padding:0; display:grid; gap:10px;">
+          <!-- Routes will be populated by JS -->
+        </ul>
+        <div id="routeDetails"
+          style="margin-top:10px; padding:15px; background:var(--accent); border-radius:8px; display:none;">
+          <strong id="routeTitle" style="display:block; font-size:16px;"></strong>
+          <span id="routeSchedule" style="color:var(--muted);"></span>
+        </div>
+      </div>
+
+      <div class="controls" style="margin-top:14px;">
+        <button class="btn eco" id="simBtn">Iniciar simulación</button>
+        <button class="btn ghost" id="stopBtn" style="color:var(--red); border-color:var(--red);">Detener</button>
+        <button class="btn ghost" id="centerBtn">Centrar mapa</button>
+      </div>
+    </section>
+
+    <!-- APRENDE A RECICLAR (Nuevo) -->
+    <section class="card" id="aprende">
+      <h2>Guía de Separación de Residuos</h2>
+      <p class="muted">Aprende qué va en cada contenedor para facilitar el trabajo de los recicladores.</p>
+
+      <div
+        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:20px;">
+        <div style="text-align:center; padding:20px; border:1px solid #eee; border-radius:12px;">
+          <div style="font-size:40px;">📄</div>
+          <h4 style="margin:10px 0; color:var(--text);">Papel y Cartón</h4>
+          <p class="small">Cajas limpias, cuadernos, periódicos. <br><strong style="color:var(--muted)">Contenedor
+              Gris/Azul</strong></p>
+        </div>
+        <div style="text-align:center; padding:20px; border:1px solid #eee; border-radius:12px;">
+          <div style="font-size:40px;">🥤</div>
+          <h4 style="margin:10px 0; color:var(--text);">Plástico y Envases</h4>
+          <p class="small">Botellas PET, bolsas limpias, latas. <br><strong style="color:var(--blue)">Contenedor
+              Azul/Blanco</strong></p>
+        </div>
+        <div style="text-align:center; padding:20px; border:1px solid #eee; border-radius:12px;">
+          <div style="font-size:40px;">🍎</div>
+          <h4 style="margin:10px 0; color:var(--text);">Orgánicos</h4>
+          <p class="small">Restos de comida, cáscaras. <br><strong style="color:var(--green)">Contenedor Verde</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTIFICACIONES -->
+    <section class="card" id="notificaciones">
+      <h2>Centro de Alertas</h2>
+      <p class="muted">Mantente informado sobre cambios de horario o campañas de limpieza en tu barrio.</p>
+      <div id="notifArea" style="margin-top:12px;">
+        <div class="small">Sistema operativo. No hay alertas críticas.</div>
+      </div>
+    </section>
+
+    <!-- REPORTES -->
+    <section class="card" id="reportes">
+      <h2>Reporte Ciudadano</h2>
+      <p class="muted">¿Viste un punto de acumulación de basura? Ayúdanos a identificarlo. Sube una foto y la ubicación
+        para programar una recolección especial.</p>
+
+      <label for="descReporte">Descripción del incidente</label>
+      <textarea id="descReporte" placeholder="Ej: Acumulación de plásticos en la playa sector X..."></textarea>
+
+      <label for="fotoReporte">Evidencia Fotográfica (Opcional)</label>
+      <input id="fotoReporte" type="file" accept="image/*" />
+
+      <label>Ubicación (haz clic en el mapa)</label>
+      <div id="mapReporte" class="map" style="height:300px"></div>
+
+      <div class="controls">
+        <button class="btn eco" id="enviarReporteBtn">Enviar Reporte</button>
+        <button class="btn ghost" id="limpiarReporteBtn">Limpiar formulario</button>
+      </div>
+
+      <div style="margin-top:16px;">
+        <h3 style="margin:0 0 8px">Historial de Reportes</h3>
+        <div id="listaReportes" class="small">Tus reportes aparecerán aquí.</div>
+      </div>
+    </section>
+
+    <!-- PROYECTO -->
+    <section class="card" id="proyecto">
+      <h2>Sobre el Proyecto EcoCity</h2>
+      <p class="muted">Una iniciativa tecnológica para el desarrollo sostenible del pacífico.</p>
+
+      <h3>Justificación Ambiental</h3>
+      <p>La incorrecta disposición de residuos sólidos en Buenaventura genera contaminación marina y afecta la salud
+        pública. <strong>EcoCity</strong> nace como respuesta para integrar tecnología de geolocalización con la
+        participación activa de la comunidad, permitiendo una gestión más eficiente y transparente.</p>
+
+      <h3>Objetivos Estratégicos</h3>
+      <ul style="line-height:1.6;">
+        <li><strong>Digitalización:</strong> Monitoreo en tiempo real de la flota de recolección.</li>
+        <li><strong>Participación:</strong> Empoderar a la ciudadanía con herramientas de denuncia y control.</li>
+        <li><strong>Educación:</strong> Fomentar la cultura del reciclaje y la economía circular.</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>© 2025 EcoCity Buenaventura — Gestión de Residuos</footer>
+
+  <!-- LOGIN / REGISTER OVERLAYS (compact and accessible) -->
+  <div id="loginOverlay" class="overlay" aria-hidden="false">
+    <div class="panel" role="dialog" aria-label="Iniciar sesión">
+      <h3>Iniciar sesión</h3>
+      <label>Usuario o correo</label>
+      <input id="loginUser" type="text" placeholder="usuario@correo.com" />
+      <label>Contraseña</label>
+      <input id="loginPass" type="password" placeholder="Contraseña" />
+
+      <div style="margin-top:12px; display:flex; gap:8px;">
+        <button class="btn primary" onclick="handleLogin()">Entrar</button>
+        <button class="btn ghost" onclick="showRegister()">Crear cuenta</button>
+      </div>
+
+      <p class="small" style="margin-top:12px">Acceso de prueba disponible si no hay cuentas registradas.</p>
+    </div>
+  </div>
+
+  <div id="registerOverlay" class="overlay" aria-hidden="true" style="display:none;">
+    <div class="panel" role="dialog" aria-label="Crear cuenta">
+      <h3>Crear cuenta</h3>
+      <label>Usuario</label>
+      <input id="regUser" type="text" placeholder="Nombre de usuario" />
+      <label>Correo</label>
+      <input id="regEmail" type="email" placeholder="correo@ejemplo.com" />
+      <label>Contraseña</label>
+      <input id="regPass" type="password" placeholder="Contraseña segura" />
+
+      <label style="margin-top:10px; font-weight:600;">
+        <input id="saveGithub" type="checkbox" style="margin-right:8px" /> Guardar en GitHub (opcional)
+      </label>
+
+      <div style="margin-top:12px; display:flex; gap:8px;">
+        <button class="btn eco" onclick="handleRegister()">Registrarme</button>
+        <button class="btn ghost" onclick="showLogin()">Volver</button>
+      </div>
+      <p class="small" style="margin-top:10px">Si activas Guardar en GitHub, el registro enviará los datos (usuario,
+        correo, contraseña en base64) al workflow configurado. No incluyas tokens en el cliente.</p>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
