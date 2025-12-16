@@ -1,0 +1,65 @@
+body { background:#f4f7fb; }
+header { background: linear-gradient(90deg,#0d6efd, #0b5ed7); color:white; }
+#map, #reportMap { box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.list-group-item { cursor:pointer; }
+.report-thumb { max-width:100px; max-height:80px; object-fit:cover; }
+:root {
+    --eco-green: #2ecc71;
+    --eco-green-dark: #27ae60;
+    --eco-blue: #1e88e5;
+    --eco-light: #e8f5e9;
+    --eco-gray: #f0f0f0;
+}
+
+body {
+    background: var(--eco-light);
+    font-family: 'Segoe UI', Arial;
+}
+
+/* Navbar reciclaje */
+.navbar {
+    background: var(--eco-green-dark) !important;
+}
+
+/* Secciones */
+section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* Botones */
+.btn-primary {
+    background: var(--eco-blue);
+    border: none;
+}
+.btn-primary:hover {
+    background: #1565c0;
+}
+
+.btn-success {
+    background: var(--eco-green-dark);
+    border: none;
+}
+.btn-success:hover {
+    background: #1e874b;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: 14px !important;
+}
+
+/* Lista de rutas */
+.list-group-item:hover {
+    background: var(--eco-gray);
+}
+
+/* Notificaciones */
+.alert-info {
+    background: #d0f5d8;
+    color: #2e7d32;
+    border-left: 5px solid var(--eco-green-dark);
+}

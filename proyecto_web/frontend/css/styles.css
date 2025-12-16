@@ -1,0 +1,312 @@
+/* ---------------------------
+   EcoCity Buenaventura — A+B
+   Minimal + Ambiental (verde-azul + texturas)
+--------------------------- */
+:root {
+  --bg-start: #e9fbf1;
+  --bg-end: #d9f0ff;
+  --green: #0e7a3a;
+  --green-2: #1aa05b;
+  --blue: #0c6fb1;
+  --muted: #6b8b73;
+  --card: #ffffff;
+  --shadow: rgba(10, 20, 10, 0.08);
+  --accent: #f0f7ee;
+  --text: #063a2b;
+  --glass: rgba(255, 255, 255, 0.7);
+}
+
+/* Global */
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Top navbar (minimal, gov-like) */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: linear-gradient(90deg, var(--green), var(--green-2));
+  color: white;
+  box-shadow: 0 6px 18px rgba(6, 54, 33, 0.18);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+nav .brand {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.3px
+}
+
+nav .links a {
+  color: rgba(255, 255, 255, 0.95);
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+nav .links a:hover {
+  opacity: 0.92;
+  text-decoration: underline
+}
+
+/* Header — large hero with subtle leaf texture */
+header.hero {
+  margin: 18px auto 0;
+  max-width: 1100px;
+  padding: 36px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95));
+  box-shadow: 0 10px 30px var(--shadow);
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(10, 70, 30, 0.06);
+  background-image: radial-gradient(rgba(10, 70, 30, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.hero .hero-left {
+  flex: 1.2
+}
+
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: 36px;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.5px
+}
+
+.hero p {
+  margin: 0 0 24px;
+  color: var(--muted);
+  max-width: 650px;
+  line-height: 1.6;
+  font-size: 16px
+}
+
+.hero .badge {
+  background: rgba(14, 122, 58, 0.1);
+  color: var(--green);
+  padding: 6px 12px;
+  border-radius: 100px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.hero .illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero .illustration img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Page container */
+.container {
+  max-width: 1100px;
+  margin: 22px auto;
+  padding: 0 20px
+}
+
+/* Section cards */
+section.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px var(--shadow);
+  border: 1px solid rgba(6, 54, 33, 0.04);
+}
+
+section.card h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: var(--green);
+  padding-left: 10px;
+  border-left: 5px solid var(--green-2);
+}
+
+/* Controls + small helpers */
+.muted {
+  color: var(--muted);
+  font-size: 14px
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(10, 70, 30, 0.06);
+}
+
+.btn.primary {
+  background: var(--blue);
+  color: white
+}
+
+.btn.eco {
+  background: linear-gradient(90deg, var(--green), var(--green-2));
+  color: white
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(10, 70, 30, 0.08);
+  color: var(--text)
+}
+
+/* Map styling */
+.map {
+  width: 100%;
+  height: 420px;
+  border-radius: 12px;
+  margin-top: 8px;
+  border: 3px solid rgba(10, 70, 30, 0.06);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Forms */
+label {
+  display: block;
+  font-weight: 700;
+  margin-top: 10px;
+  color: var(--muted)
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #dfeee0;
+  background: linear-gradient(180deg, #fff, #fbfffa);
+  font-size: 14px;
+  color: var(--text);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical
+}
+
+/* Compact login/register overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 30, 20, 0.25);
+  z-index: 2200;
+  padding: 20px;
+}
+
+.panel {
+  width: 360px;
+  max-width: 92%;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.panel h3 {
+  margin: 0 0 8px;
+  color: var(--green-2)
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center
+}
+
+/* Report list */
+.report-item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(6, 54, 33, 0.04)
+}
+
+.report-item:last-child {
+  border-bottom: none
+}
+
+.small {
+  font-size: 13px;
+  color: var(--muted)
+}
+
+/* Footer */
+footer {
+  margin: 26px auto;
+  max-width: 1100px;
+  background: linear-gradient(90deg, var(--green-2), var(--green));
+  color: white;
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(10, 70, 30, 0.12);
+}
+
+/* Responsive */
+@media (max-width:880px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start
+  }
+
+  .hero .illustration {
+    order: -1;
+    margin-bottom: 12px
+  }
+
+  .map {
+    height: 320px
+  }
+}
